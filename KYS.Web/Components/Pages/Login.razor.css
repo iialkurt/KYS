@@ -1,0 +1,82 @@
+.login-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 20px;
+    background: radial-gradient(ellipse at 15% 10%, #8a98a8 0, transparent 50%),
+        linear-gradient(135deg, #505d6c, #7c8795 55%, #bbc4ce);
+}
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border: 1px solid #ffffff80;
+    border-radius: 22px;
+    padding: 36px 32px 28px;
+    box-shadow: 0 24px 65px #19263938;
+}
+.login-logo-wrap { text-align: center; margin-bottom: 28px; }
+.login-logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #ecf3fc, #d9e7f8);
+    color: #173c65;
+}
+.login-logo svg { width: 38px; height: 38px; }
+.brand-label { color: #173c65; font-weight: 800; font-size: 28px; letter-spacing: 3px; }
+h1 { margin: 8px 0 0; color: #18314e; font-size: 23px; font-weight: 700; line-height: 1.35; }
+.login-logo-wrap p { margin: 9px 0 0; color: #718096; font-size: 14px; }
+.login-form { display: flex; flex-direction: column; gap: 18px; }
+.field label { display: block; margin-bottom: 8px; color: #33445c; font-size: 13px; font-weight: 600; }
+.input-group-custom { position: relative; display: flex; align-items: center; }
+.input-icon { position: absolute; left: 15px; color: #8794a6; pointer-events: none; }
+.input-icon svg, .password-toggle svg { display: block; width: 20px; height: 20px; }
+.login-input {
+    width: 100%; height: 50px; border: 1px solid #dbe3ee; border-radius: 12px;
+    padding: 0 14px 0 46px; background: #fcfdff; color: #1b2b40;
+    font: inherit; font-size: 14px; transition: border-color .2s, box-shadow .2s;
+}
+.login-input::placeholder { color: #99a4b3; }
+.login-input:focus { outline: none; border-color: #407bb5; box-shadow: 0 0 0 3px #407bb51c; }
+.login-input-password { padding-right: 50px; }
+.password-toggle {
+    position: absolute; right: 8px; border: none; background: transparent;
+    padding: 10px; border-radius: 8px; color: #718096; cursor: pointer;
+}
+.password-toggle:hover { color: #173c65; background: #edf3f9; }
+.password-toggle:disabled { opacity: .5; cursor: default; }
+.eye-slash { display: none; }
+.password-toggle[aria-pressed="true"] .eye-slash { display: block; }
+.remember-me { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; color: #58677a; cursor: pointer; }
+.remember-me input { width: 16px; height: 16px; margin: 0; accent-color: #173c65; }
+.login-button {
+    height: 50px; display: flex; align-items: center; justify-content: center; gap: 12px;
+    border: none; border-radius: 12px; background: #173c65; color: #fff;
+    font: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+.login-button:hover:not(:disabled) { background: #204e7e; transform: translateY(-1px); box-shadow: 0 8px 20px #173c6526; }
+.login-button:disabled { cursor: wait; opacity: .8; }
+.button-arrow { width: 18px; height: 18px; }
+.spinner { display: none; width: 17px; height: 17px; border: 2px solid #ffffff66; border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+.login-button[aria-busy="true"] .spinner { display: inline-block; }
+.login-button[aria-busy="true"] .button-arrow { display: none; }
+.error-message { padding: 12px 14px; border: 1px solid #f4c9c9; border-radius: 10px; background: #fff2f2; color: #ac3030; font-size: 13px; line-height: 1.6; }
+.login-help { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid #edf0f4; text-align: center; color: #8490a0; font-size: 12px; line-height: 1.7; }
+.login-footer { color: #ffffffc9; margin: 23px 0 0; font-size: 12px; letter-spacing: .2px; text-align: center; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 480px) {
+    .login-page { padding: 24px 16px; }
+    .login-card { padding: 28px 22px 24px; border-radius: 18px; }
+    h1 { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}

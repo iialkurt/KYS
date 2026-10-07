@@ -1,0 +1,31 @@
+const { chromium } = require('playwright');
+const path = require('path');
+
+(async () => {
+    const browser = await chromium.launch({ channel: 'msedge', headless: true });
+    const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto('http://localhost:5281/login');
+    await page.locator('#username').fill('test-user');
+    await page.locator('#password').fill('Test-password-123!');
+    await page.getByRole('button', { name: 'Şifreyi göster', exact: true }).click();
+    await page.waitForFunction(() => document.querySelector('#password').type === 'text');
+    if (await page.locator('#password').inputValue() !== 'Test-password-123!') throw Error('Password lost after toggle');
+    await page.getByRole('button', { name: 'Şifreyi gizle', exact: true }).click();
+    await page.waitForFunction(() => document.querySelector('#password').type === 'password');
+    await page.locator('#username').fill('');
+    await page.locator('#password').fill('');
+    const output = process.argv[2];
+    if (output) await page.screenshot({ path: path.join(output, 'kys-login-desktop.png'), fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) throw Error('Mobile horizontal overflow');
+    if (output) await page.screenshot({ path: path.join(output, 'kys-login-mobile.png'), fullPage: true });
+    await page.goto('http://localhost:5281/login?error=invalid');
+    if (!(await page.getByRole('alert').innerText()).includes('Kullanıcı adı veya şifre')) throw Error('Error message missing');
+    await page.getByRole('button', { name: 'Giriş Yap', exact: true }).click();
+    if (await page.locator('#username').evaluate(input => input.validity.valid)) throw Error('Required username validation missing');
+    if (errors.length) throw Error(errors.join('\n'));
+    console.log('PASS: desktop/mobile layout, password toggle, error message, required-field validation, no browser errors');
+    await browser.close();
+})().catch(error => { console.error(error); process.exit(1); });

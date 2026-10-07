@@ -1,0 +1,20 @@
+@page "/"
+@attribute [Authorize]
+
+<PageTitle>Ana Sayfa · KYS</PageTitle>
+
+<span class="page-eyebrow">KALİTE YÖNETİM SİSTEMİ</span>
+<AuthorizeView>
+    <Authorized Context="auth">
+        <h1>Hoş geldiniz, @auth.User.Identity?.Name</h1>
+        @if (!string.IsNullOrWhiteSpace(auth.User.FindFirstValue("unvan")))
+        {
+            <p class="user-title">@auth.User.FindFirstValue("unvan")</p>
+        }
+    </Authorized>
+</AuthorizeView>
+<section class="welcome-card">
+    <span class="status-badge">Oturum açık</span>
+    <h2>Kalite yönetiminin başlangıç noktası.</h2>
+    <p>KYS hesabınıza başarıyla giriş yaptınız. Kalite yönetimi modülleri bu alan üzerinden erişime açılacak.</p>
+</section>

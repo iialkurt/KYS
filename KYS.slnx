@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="KYS/KYS/KYS.csproj" />
+  <Project Path="KYS.Web/KYS.Web.csproj" />
+</Solution>

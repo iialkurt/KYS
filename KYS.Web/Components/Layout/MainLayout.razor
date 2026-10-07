@@ -1,0 +1,33 @@
+@inherits LayoutComponentBase
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="sidebar-brand" href="/">KYS<span>Kalite Yönetim Sistemi</span></a>
+        <nav aria-label="Ana menü">
+            <NavLink href="/" Match="NavLinkMatch.All" class="nav-link">Ana Sayfa</NavLink>
+        </nav>
+        <span class="sidebar-note">Sürekli iyileştirme, ortak hedef.</span>
+    </aside>
+    <div class="main-panel">
+        <header class="topbar">
+            <span>Kalite Yönetim Sistemi</span>
+            <div class="user-menu">
+                <AuthorizeView>
+                    <Authorized Context="auth">
+                        <span class="user-name">@auth.User.Identity?.Name</span>
+                    </Authorized>
+                </AuthorizeView>
+                <form action="auth/logout" method="post">
+                    <AntiforgeryToken />
+                    <input type="hidden" name="returnUrl" value="/login" />
+                    <button type="submit" class="logout-button">Çıkış Yap</button>
+                </form>
+            </div>
+        </header>
+        <main class="main-content">@Body</main>
+    </div>
+</div>
+<div id="blazor-error-ui" role="alert">
+    Bağlantıda bir sorun oluştu. <a href="" class="reload">Sayfayı yenileyin</a>.
+    <button class="dismiss" aria-label="Bildirimi kapat">×</button>
+</div>
